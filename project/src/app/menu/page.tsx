@@ -1,13 +1,13 @@
 "use client";
 import React from "react";
 import { useState, useEffect } from "react";
-import { WontonItem, DipItem, DrinkItem } from "../types/menuType";
+import { Wonton, Dip, Drink } from "../types/menuType";
 import CartModal from "../components/cartmodal";
 
 export default function Menu() {
-  const [menu, setMenu] = useState<WontonItem[]>([]);
-  const [dip, setDip] = useState<DipItem[]>([]);
-  const [drink, setDrink] = useState<DrinkItem[]>([]);
+  const [menu, setMenu] = useState<Wonton[]>([]);
+  const [dip, setDip] = useState<Dip[]>([]);
+  const [drink, setDrink] = useState<Drink[]>([]);
   const [selectedItems, setSelectedItems] = useState<number[]>([]);
   const [loading, setLoading] = useState(true);
   const [buttonClicked, setButtonClicked] = useState<boolean>(false);
@@ -17,7 +17,7 @@ export default function Menu() {
     setButtonClicked(!buttonClicked);
   }
 
-  function handleItemCLicked(itemID: number) {
+  function handleItemCLicked(itemID: number): void {
     setSelectedItems((prev) => {
       if (prev.includes(itemID)) {
         return prev.filter((id) => id !== itemID);
@@ -27,13 +27,12 @@ export default function Menu() {
     });
   }
 
-  function getTotalPrice() {
+  function getTotalPrice(): number {
     return selectedItems.reduce((total, selectedId) => {
       const menuItem = menu.find((item) => item.id === selectedId);
       const dipItem = dip.find((item) => item.id === selectedId);
       const drinkItem = drink.find((item) => item.id === selectedId);
 
-      // Get the price from whichever item was found
       const price = menuItem?.price || dipItem?.price || drinkItem?.price || 0;
 
       return total + price;
@@ -86,10 +85,6 @@ export default function Menu() {
       setLoading(false);
     }
   }
-
-  useEffect(() => {
-    console.log("hehe", dip[0]);
-  }, [dip]);
 
   async function getDrinkItem(): Promise<void> {
     try {

@@ -1,37 +1,41 @@
-export type WontonItem = {
+export const enum OrderType {
+  WONTON = "wonton",
+  DIP = "dip",
+  DRINK = "drink",
+}
+
+type BaseOrderItem = {
   id: number;
-  type: string;
+  type: OrderType;
   name: string;
   description: string;
   price: number;
+};
+
+type WontonSpecific = {
+  type: OrderType.WONTON;
   ingredients?: string[];
 };
 
-export type DipItem = {
-  id: number;
-  type: string;
-  name: string;
-  description: string;
-  price: number;
+type DipSpecific = {
+  type: OrderType.DIP;
 };
 
-export type DrinkItem = {
-  id: number;
-  type: string;
-  name: string;
-  description: string;
-  price: number;
+type DrinkSpecific = {
+  type: OrderType.DRINK;
 };
+
+export type Wonton = BaseOrderItem & WontonSpecific;
+export type Dip = BaseOrderItem & DipSpecific;
+export type Drink = BaseOrderItem & DrinkSpecific;
 
 export type OrderBody = {
   items: number;
 };
 
-export type OrderItem = {};
-
 export type Order = {
   id: string;
-  items: OrderItem[];
+  items: (Wonton | Dip | Drink)[];
   orderValue: number;
   eta: string;
   timestamp: string;
@@ -41,3 +45,5 @@ export type Order = {
 type Key = {
   key: string;
 };
+
+export type MenuItem = Wonton | Dip | Drink;

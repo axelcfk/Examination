@@ -1,10 +1,10 @@
 import { NextResponse } from "next/server";
-import { WontonItem } from "@/app/types/menuType";
+import { Wonton } from "@/app/types/menuType";
 
 const TENANT_ID = "r0e9";
 const API_KEY = "yum-24wDDIiKn23xmDqw";
 
-export async function GET() {
+export async function GET(type: Wonton) {
   try {
     const response = await fetch(
       `https://fdnzawlcf6.execute-api.eu-north-1.amazonaws.com/menu?type=wonton`,
@@ -23,7 +23,7 @@ export async function GET() {
       throw new Error(`Error: ${response.status}`);
     }
 
-    const data = (await response.json()) as WontonItem[];
+    const data = (await response.json()) as Wonton[];
     return NextResponse.json(data);
   } catch (error) {
     return NextResponse.json(

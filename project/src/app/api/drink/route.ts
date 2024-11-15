@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+import { Drink } from "@/app/types/menuType";
 
 const TENANT_ID = "r0e9";
 const API_KEY = "yum-24wDDIiKn23xmDqw";
@@ -22,7 +23,7 @@ export async function GET() {
       throw new Error(`Error: ${response.status}`);
     }
 
-    const data = await response.json();
+    const data = (await response.json()) as Drink[];
     return NextResponse.json(data);
   } catch (error) {
     return NextResponse.json(

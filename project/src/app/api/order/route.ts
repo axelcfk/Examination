@@ -24,7 +24,7 @@ export async function POST(req: NextRequest) {
           "x-requested-with": "XMLHttpRequest",
           "x-zocom": API_KEY,
           "Content-Type": "application/json",
-        } as HeadersInit,
+        },
         body: JSON.stringify(orderBody),
       }
     );

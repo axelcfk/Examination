@@ -1,14 +1,15 @@
 import React from "react";
 import { useState } from "react";
-import { WontonItem, DipItem, DrinkItem } from "../types/menuType";
+import { Wonton, Dip, Drink } from "../types/menuType";
 import Eta from "./eta";
+import { MenuItem } from "../types/menuType";
 
 type CartModalProps = {
   getTotalPrice: () => number;
-  selectedItems: number[];
-  menu: WontonItem[];
-  dip: DipItem[];
-  drink: DrinkItem[];
+  selectedItems: readonly number[];
+  menu: readonly Wonton[];
+  dip: readonly Dip[];
+  drink: readonly Drink[];
   setSelectedItems: React.Dispatch<React.SetStateAction<number[]>>;
 };
 
@@ -70,10 +71,7 @@ export default function CartModal({
     });
   }
 
-  const renderItemRow = (
-    item: WontonItem | DipItem | DrinkItem,
-    index: number
-  ) => (
+  const renderItemRow = (item: MenuItem, index: number) => (
     <div
       key={item.id}
       className={`h-[89px] p-[16px] gap-[8px] w-[390px] flex-nowrap transition-colors duration-200 ${
